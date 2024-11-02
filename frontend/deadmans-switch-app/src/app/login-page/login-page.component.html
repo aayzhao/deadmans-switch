@@ -1,0 +1,37 @@
+<form [formGroup]="loginCreds" (ngSubmit)="onSubmitForm()">
+    <mat-card appearance="outlined">
+  
+      <mat-card-content>
+
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            placeholder="username"
+            formControlName="username"
+            name="username"
+            required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            placeholder="password"
+            formControlName="password"
+            name="password"
+            required />
+        </mat-form-field>
+  
+        <!-- Save Button and friends -->
+        <mat-card-actions>
+          <button
+            mat-stroked-button
+            type="submit"
+            [disabled]="loginCreds.invalid">
+            Submit
+          </button>
+        </mat-card-actions>
+      </mat-card-content>
+    </mat-card>
+  </form>
