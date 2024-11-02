@@ -5,10 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 // Components
 import { HomeComponent } from './home/home.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 // Services
 
@@ -17,6 +19,7 @@ import { AppComponent } from './app.component';
 	declarations: [
 		AppComponent,
         HomeComponent,
+        LoginPageComponent,
 	],
 	imports: [
 		AppRoutingModule,
@@ -25,6 +28,6 @@ import { AppComponent } from './app.component';
 	],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	bootstrap: [AppComponent],
-	providers: [provideHttpClient()]
+	providers: [provideHttpClient(), provideAnimationsAsync()]
 })
 export class AppModule {}
