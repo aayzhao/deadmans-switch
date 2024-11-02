@@ -15,4 +15,13 @@ export class AuthenticationService {
     return this.http.post<any>(this.apiUrl, userData, { headers });
   }
 
+  login(userData: { username: string; password: string}): Observable<any> {
+    const headers = new HttpHeaders({ 'Content_type': 'application/json' });
+    return this.http.post<any>(this.apiUrl, userData, {headers})
+  }
+
+  logout(): Observable<any> {
+    const headers = new HttpHeaders({ 'Content_type': 'application/json' });
+    return this.http.post<any>(this.apiUrl, {headers})
+  }
 }
