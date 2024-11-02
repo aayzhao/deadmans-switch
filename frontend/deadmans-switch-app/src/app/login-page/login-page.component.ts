@@ -18,10 +18,14 @@ export class LoginPageComponent {
 
     constructor(
         protected formBuilder: FormBuilder,
-        protected snackbar: MatSnackBar
+        protected snackBar: MatSnackBar
     ) {}
 
     onSubmitForm() {
-        
+        if (this.loginCreds.valid) {
+
+        } else {
+            this.snackBar.open('Please enter your username/password')
+        }
     }
 }
