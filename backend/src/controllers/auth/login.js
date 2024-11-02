@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import User from '../../schemas/user.js';
 
 export async function handleLogin(req, res, next) {
     try {
