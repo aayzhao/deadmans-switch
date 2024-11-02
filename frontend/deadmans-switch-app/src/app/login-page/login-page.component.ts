@@ -20,4 +20,8 @@ export class LoginPageComponent {
         protected formBuilder: FormBuilder,
         protected snackbar: MatSnackBar
     ) {}
+
+    onSubmitForm() {
+        
+    }
 }
