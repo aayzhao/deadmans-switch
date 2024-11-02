@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 // Components
 import { HomeComponent } from './home/home.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { SignupPageComponent } from './signup-page/signup-page.component';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +21,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 		AppComponent,
         HomeComponent,
         LoginPageComponent,
+		SignupPageComponent,
 	],
 	imports: [
 		AppRoutingModule,
