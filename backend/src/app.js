@@ -1,11 +1,11 @@
 import dotenv from 'dotenv'
-import express, { Express } from 'express'
+import express from 'express'
+import dbConnect from '../db/dbConnect.js'
 
 dotenv.config()
 
-const app: Express = express()
+const app = express()
 const port = process.env.PORT || 3000
-const dbConnect = require('./db/dbConnect')
 
 dbConnect()
 

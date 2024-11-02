@@ -1,5 +1,4 @@
-const mongoose = require("mongoose")
-require('dotenv').config()
+import mongoose from "mongoose"
 
 async function dbConnect() {
   mongoose
@@ -8,7 +7,6 @@ async function dbConnect() {
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useCreateIndex: true,
       }
     )
     .then(() => {
@@ -20,4 +18,4 @@ async function dbConnect() {
     })
 }
 
-module.exports = dbConnect
+export default dbConnect
