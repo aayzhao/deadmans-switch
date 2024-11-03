@@ -4,6 +4,7 @@ import express from "express";
 import dbConnect from "../db/dbConnect.js";
 import { router } from "./routes/routes.js";
 import errorHandler from "./middlewares/error.middleware.js";
+import "./controllers/expiry/expiry.js"; // Importing this file will run the cron job
 
 dotenv.config();
 
