@@ -31,20 +31,22 @@ export class UserService {
     );
   }
 
-  addEmail( email: string): Observable<any> {
+  addEmail(email: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(`${this.apiUrl}/email`, email, {
+    const body = { email: email };
+    return this.http.post<any>(`${this.apiUrl}/email`, body, {
       headers,
       withCredentials: true,
     });
   }
 
-  deleteEmail( email: string): Observable<any> {
+  deleteEmail(email: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { email: email };
     return this.http.delete<any>(`${this.apiUrl}/email`, {
       headers,
       withCredentials: true,
-      body: email
+      body: body,
     });
   }
 
@@ -52,7 +54,7 @@ export class UserService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<any>(`${this.apiUrl}/email`, {
       headers,
-      withCredentials: true
+      withCredentials: true,
     });
   }
 }
