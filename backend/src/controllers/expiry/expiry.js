@@ -1,5 +1,5 @@
 import User from "../../schemas/user.js";
-import sgMail from "@sendgrid/mail.js";
+import sgMail from "@sendgrid/mail";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
