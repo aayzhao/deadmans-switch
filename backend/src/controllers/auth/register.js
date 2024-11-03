@@ -13,13 +13,19 @@ export async function handleRegister(
         // Create a new user with hashed password
         const newUser = await User.create({
             email: req.body.email,
+            username: req.body.username,
             password: hash,
         });
 
         // Send response with the created user (omit sensitive info like password)
         res.status(201).json({
             message: 'User registered successfully',
-            user: { email: newUser.email }, // Only return non-sensitive data
+            user: {
+                email: newUser.email,
+                username: newUser.username,
+                createdAt: newUser.createdAt,
+                updatedAt: newUser.updatedAt,
+            },
         });
     } catch (error) {
         // Pass any errors to the error handler middleware
