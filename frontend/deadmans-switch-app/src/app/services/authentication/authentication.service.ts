@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthenticationService {
   private apiUrl = 'http://localhost:3000';
@@ -12,16 +12,29 @@ export class AuthenticationService {
 
   register(userData: { password: string; email: string }): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(this.apiUrl+'/register', userData, { headers });
+    return this.http.post<any>(`${this.apiUrl}/register`, userData, {
+      headers,
+      withCredentials: true,
+    });
   }
 
-  login(userData: { email: string; password: string}): Observable<any> {
-    const headers = new HttpHeaders({ 'Content_type': 'application/json' });
-    return this.http.post<any>(this.apiUrl+'/login', userData, {headers})
+  login(userData: { email: string; password: string }): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(`${this.apiUrl}/login`, userData, {
+      headers,
+      withCredentials: true,
+    });
   }
 
   logout(): Observable<any> {
-    const headers = new HttpHeaders({ 'Content_type': 'application/json' });
-    return this.http.post<any>(this.apiUrl+'/logout', {headers})
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(
+      `${this.apiUrl}/logout`,
+      {},
+      {
+        headers,
+        withCredentials: true,
+      }
+    );
   }
 }

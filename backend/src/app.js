@@ -4,6 +4,7 @@ import express from "express";
 import dbConnect from "../db/dbConnect.js";
 import { router } from "./routes/routes.js";
 import errorHandler from "./middlewares/error.middleware.js";
+import cookieParser from "cookie-parser";
 import "./cronJob.js"; // Importing the cron job will start the cron job
 
 dotenv.config();
@@ -14,6 +15,7 @@ const port = process.env.PORT || 3000;
 dbConnect();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(
   cors({

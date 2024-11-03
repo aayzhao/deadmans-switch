@@ -20,7 +20,9 @@ export async function handleLogin(req, res, next) {
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours,
+      sameSite: "Lax",
     });
 
     res.status(200).send({
