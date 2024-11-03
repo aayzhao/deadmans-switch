@@ -51,6 +51,7 @@ export class FileManagementComponent implements OnInit {
 
   ngOnInit() {
     this.userEmail = this.userService.getCurrentUserEmail();
+    this.loadEmail();
     // this.loadDocuments();
   }
 
@@ -103,20 +104,65 @@ export class FileManagementComponent implements OnInit {
 
   addEmail() {
     if (this.isValidEmail(this.newEmail) && !this.emails.includes(this.newEmail)) {
-      this.emails.push(this.newEmail);
-      this.newEmail = '';
+      this.userService.addEmail(this.newEmail).subscribe({
+        next: (response) => {
+          this.snackBar.open('Added email!', 'Close', { duration: 3000 });
+        },
+        error: (error) => {
+            this.snackBar.open('Email failed. Please try again.', 'Close', { duration: 3000 });
+        }
+      });
+      this.loadEmail();
+      if (this.emails == undefined) {
+        this.emails = [];
+      }
       this.emailError = false;
+      this.newEmail = '';
+
     } else {
       this.emailError = true;
     }
   }
 
   removeEmail(email: string) {
-    this.emails = this.emails.filter(e => e !== email);
+    if (this.isValidEmail(email) && this.emails.includes(email)) {
+      this.userService.deleteEmail(email).subscribe({
+        next: (response) => {
+          this.snackBar.open('Deleted email!', 'Close', { duration: 3000 });
+        },
+        error: (error) => {
+            this.snackBar.open('Deletion failed. Please try again.', 'Close', { duration: 3000 });
+        }
+      });
+      this.loadEmail();
+      if (this.emails == undefined) {
+        this.emails = [];
+      }
+      this.emailError = false;
+      
+    } else {
+      this.emailError = true;
+    }
   }
 
   private isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  }
+
+  loadEmail() {
+    this.userService.getEmail().subscribe({
+      next: (response) => {
+        // Assuming the response has an emails property
+        // Adjust based on your actual API response structure
+        if (response.emails != undefined) {
+          this.emails = response.emails;
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching emails:', error);
+        // Handle error appropriately
+      }
+    });
   }
 }
