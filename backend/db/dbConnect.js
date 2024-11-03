@@ -1,21 +1,18 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 async function dbConnect() {
   mongoose
-    .connect(
-        process.env.DB_URL,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
-    )
+    .connect(process.env.DB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
     .then(() => {
-      console.log("Successfully connected to MongoDB Atlas!")
+      console.log("Successfully connected to MongoDB Atlas!");
     })
     .catch((error) => {
-      console.log("Unable to connect to MongoDB Atlas!")
-      console.error(error)
-    })
+      console.log("Unable to connect to MongoDB Atlas!");
+      console.error(error);
+    });
 }
 
-export default dbConnect
+export default dbConnect;

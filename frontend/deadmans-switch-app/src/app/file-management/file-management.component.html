@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- Template by quackit.com -->
+<html>
+	<body>		
+
+		<header id="header">
+			<div id="logo">
+				<h1><a href="/" target="_self"><img src="https://i.postimg.cc/ZCGWRzmB/lifeline-logo.png" alt="lifeline-logo"></a></h1>
+			</div>
+			<nav>
+				<div class="innertube">
+					<ul>
+						
+					</ul>
+				</div>
+			</nav>
+		</header>
+	
+        <div class="dashboard-container">
+            <mat-card class="user-info-card">
+              <mat-card-header>
+                <mat-card-title>Document Management Dashboard</mat-card-title>
+                <mat-card-subtitle>{{userEmail}}</mat-card-subtitle>
+              </mat-card-header>
+            </mat-card>
+          
+            <div class="actions-container">
+              <input
+                type="file"
+                #fileInput
+                style="display: none"
+                (change)="onFileSelected($event)"
+              >
+              <button mat-fab color="primary" (click)="fileInput.click()" class="upload-button">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          
+            <mat-card class="documents-card">
+              <mat-card-header>
+                <mat-card-title>Your Documents</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-list role="list">
+                  <mat-list-item *ngFor="let doc of documents" role="listitem" class="document-item">
+                    <mat-icon matListItemIcon>description</mat-icon>
+                    <div matListItemTitle>{{doc.name}}</div>
+                    <div matListItemLine>
+                      <!-- Size: {{doc.size}} | Uploaded: {{doc.uploadDate | date}} -->
+                    </div>
+                  </mat-list-item>
+                </mat-list>
+                
+                <div *ngIf="loading" class="loading-spinner">
+                  Loading documents...
+                </div>
+                
+                <div *ngIf="!loading && documents.length === 0" class="no-documents">
+                  No documents found. Click the + button to upload your first document.
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="documents-card">
+                <mat-card-header>
+                  <mat-card-title>Your Recipients</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  
+                </mat-card-content>
+              </mat-card>
+          </div>
+
+        <div class="refresh-container">
+        <button class="refresh-button" (click)="refresh()">
+            <span class="refresh-icon">
+            <mat-icon>refresh</mat-icon>
+            </span>
+            <span class="refresh-text">Refresh</span>
+        </button>
+        </div>
+	</body>
+</html>
