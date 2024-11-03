@@ -11,11 +11,11 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent {
-    username = new FormControl('', [Validators.required]);
+    email = new FormControl('', [Validators.required]);
     password = new FormControl('', [Validators.required]);
 
     public loginCreds = this.formBuilder.group({
-        username: this.username,
+        email: this.email,
         password: this.password
     })
 
@@ -30,14 +30,14 @@ export class LoginPageComponent {
     onSubmitForm() {
         if (this.loginCreds.valid) {
             const userData = {
-                username: this.loginCreds.get('username')!.value as string,
+                email: this.loginCreds.get('email')!.value as string,
                 password: this.loginCreds.get('password')!.value as string
             };
     
             this.auth.login(userData).subscribe({
                 next: (response) => {
                     this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
-                    this.user.setCurrentUserEmail(userData.username);
+                    this.user.setCurrentUserEmail(userData.email);
                     this.router.navigate(['/manage']);
                     // Handle successful login, e.g., redirect
                 },
@@ -47,7 +47,7 @@ export class LoginPageComponent {
                 }
             });
         } else {
-            this.snackBar.open('Please enter your username/password', 'Close', { duration: 3000 });
+            this.snackBar.open('Please enter your email/password', 'Close', { duration: 3000 });
         }
     }
 }

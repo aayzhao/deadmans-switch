@@ -16,7 +16,6 @@ export class SignupPageComponent {
     email = new FormControl('', [Validators.required]);
 
     public loginCreds = this.formBuilder.group({
-        username: this.username,
         password: this.password,
         email: this.email
     })
@@ -32,7 +31,6 @@ export class SignupPageComponent {
     onSubmitForm() {
         if (this.loginCreds.valid) {
             const userData = {
-                username: this.loginCreds.get('username')!.value as string,
                 password: this.loginCreds.get('password')!.value as string,
                 email: this.loginCreds.get('email')!.value as string
             };
