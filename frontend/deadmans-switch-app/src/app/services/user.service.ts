@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +8,9 @@ import { Observable } from 'rxjs';
 export class UserService {
   private currentUserEmail: string = '';
   private apiUrl = 'http://localhost:3000';
+
+  private emailListSubject = new BehaviorSubject<string[]>([]);
+  public emailList$ = this.emailListSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
