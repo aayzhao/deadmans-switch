@@ -39,7 +39,7 @@ export class FileManagementComponent implements OnInit {
 
   ngOnInit() {
     this.userEmail = this.userService.getCurrentUserEmail();
-    this.loadDocuments();
+    // this.loadDocuments();
   }
 
   loadDocuments() {

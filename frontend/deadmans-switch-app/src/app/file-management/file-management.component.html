@@ -1,110 +1,6 @@
 <!DOCTYPE html>
 <!-- Template by quackit.com -->
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>2 Rows Frames Layout (header frame)</title>
-		<style type="text/css">
-		
-		body {
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-			height: 100%; 
-			max-height: 100%; 
-			font-family: Sans-serif;
-			line-height: 1.5em;
-		}
-		
-		#header {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100px; 
-			background: #333e83;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-            margin-bottom: 20px;
-		}
-		
-		#logo img {
-			max-height: 80px; /* Adjust the logo height */
-		}
-
-		main {
-			position: fixed;
-			top: 100px; /* Set this to the height of the header */
-			left: 0; 
-			right: 0;
-			bottom: 0;
-			overflow: auto; 
-			background: #fff;
-			display: flex;
-			justify-content: center;
-			padding-top: 20px;
-		}
-		
-		.container {
-			display: flex;
-			gap: 20px; /* Adds space between the login and signup boxes */
-		}
-
-		.box {
-			border: 1px solid #ccc;
-			padding: 10px;
-			border-radius: 8px;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-			width: 600px; /* Sets a fixed width for each box */
-            height: 250px;
-            background: #FFFF
-		}
-
-		p {
-			color: #555;
-		}
-
-		/* Menu */
-		nav { 
-			margin: 0; 
-			padding: 0; 
-			float: right;
-		}
-		nav ul { 
-			list-style: none; 
-			padding: 0; 
-			float: left;
-		}
-		nav ul li { 
-			margin: 0; 
-			padding: 0 0 0 8px; 
-			float: left;
-		}
-		nav ul li a { 
-			display: block; 
-			margin: 0; 
-			padding: 8px 20px; 
-			color: #000; 
-			text-decoration: none;
-		}
-		nav ul li.active a, #top-nav ul li a:hover { 
-			color: #d3d3f9;
-		}
-				
-		/*IE6 fix*/
-		* html body {
-			padding: 100px 0 0 0; /* Set the first value to the height of the header */
-		}
-		
-		* html main { 
-			height: 100%; 
-			width: 100%; 
-		}
-		
-		</style>
-	</head>
-	
 	<body>		
 
 		<header id="header">
@@ -150,7 +46,7 @@
                     <mat-icon matListItemIcon>description</mat-icon>
                     <div matListItemTitle>{{doc.name}}</div>
                     <div matListItemLine>
-                      Size: {{doc.size}} | Uploaded: {{doc.uploadDate | date}}
+                      <!-- Size: {{doc.size}} | Uploaded: {{doc.uploadDate | date}} -->
                     </div>
                   </mat-list-item>
                 </mat-list>
@@ -164,6 +60,15 @@
                 </div>
               </mat-card-content>
             </mat-card>
+
+            <mat-card class="documents-card">
+                <mat-card-header>
+                  <mat-card-title>Your Recipients</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  
+                </mat-card-content>
+              </mat-card>
           </div>
 	</body>
 </html>
