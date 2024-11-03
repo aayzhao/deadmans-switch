@@ -1,4 +1,6 @@
 import User from "../../schemas/user.js";
+import Email from "../../schemas/email.js";
+import Doc from "../../schemas/docs.js";
 import sgMail from "@sendgrid/mail";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -40,9 +42,24 @@ export async function sendDocumentsIfExpired() {
     });
 
     for (const user of expiredUsers) {
+      // Find emails of trusted contacts
+      const { emails } = await Email.find({ userId: user._id });
+
       // Send documents of expired user to their trusted contacts
+      for (const email of emails) {
+        const { text } = await Doc.find({ userId: user._id });
+
+        const msg = {
+          to: email,
+          from: process.env.SENDGRID_FROM_EMAIL,
+          subject: "Documents of expired user",
+          text: text,
+        };
+
+        await sgMail.send(msg);
+      }
     }
   } catch (error) {
-    console.error("Error in expiration check:", error);
+    next(error);
   }
 }
