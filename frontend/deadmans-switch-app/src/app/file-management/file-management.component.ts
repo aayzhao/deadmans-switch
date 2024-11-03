@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';  // Add this
 import { MatButtonModule } from '@angular/material/button';  // Add this
 import { MatIconModule } from '@angular/material/icon';  // Add this
@@ -8,15 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { UserService } from '../services/user.service';
-import { DocumentService } from '../services/document.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-interface Document {
-  id: string;
-  name: string;
-  uploadDate: Date;
-  size: string;
-}
 
 @Component({
   selector: 'app-file-management',
@@ -36,8 +28,10 @@ interface Document {
 })
 export class FileManagementComponent implements OnInit {
   userEmail: string = '';
-  documents: Document[] = [];
-  loading: boolean = true;
+  documentText: string = '';
+  saving: boolean = false;
+  lastSaved: Date | null = null;
+  @ViewChild('textArea') textArea!: ElementRef;
 
   emails: string[] = [];
   newEmail: string = '';
@@ -45,47 +39,42 @@ export class FileManagementComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private documentService: DocumentService,
     protected snackBar: MatSnackBar,
   ) {}
 
   ngOnInit() {
     this.userEmail = this.userService.getCurrentUserEmail();
     this.loadEmail();
-    // this.loadDocuments();
+    this.loadText();
   }
 
-  loadDocuments() {
-    this.loading = true;
-    this.documentService.getDocuments(this.userEmail).subscribe({
-      next: (docs) => {
-        this.documents = docs;
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error loading documents:', error);
-        this.loading = false;
-      }
-    });
-  }
-  
-  uploadFile(file: File) {
-    this.documentService.uploadDocument(file, this.userEmail).subscribe({
+  loadText() {
+    // Assuming you have a getText method in your service
+    this.userService.getText().subscribe({
       next: (response) => {
-        console.log('File uploaded successfully');
-        this.loadDocuments(); // Refresh the document list
+        this.documentText = response.text;
       },
       error: (error) => {
-        console.error('Error uploading file:', error);
+        console.error('Error loading text:', error);
       }
     });
   }
 
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files?.length) {
-      const file = input.files[0];
-      this.uploadFile(file);
+  saveText() {
+    if (!this.saving) {
+      this.saving = true;
+      
+      // Assuming you have a saveText method in your service
+      this.userService.saveText(this.documentText).subscribe({
+        next: () => {
+          this.lastSaved = new Date();
+          this.saving = false;
+        },
+        error: (error) => {
+          console.error('Error saving text:', error);
+          this.saving = false;
+        }
+      });
     }
   }
 

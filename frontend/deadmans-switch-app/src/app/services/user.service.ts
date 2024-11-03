@@ -55,4 +55,20 @@ export class UserService {
       withCredentials: true
     });
   }
+
+  getText(): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get<any>(`${this.apiUrl}/text`, {
+      headers,
+      withCredentials: true
+    });
+  }
+
+  saveText( text: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(`${this.apiUrl}/text`, text, {
+      headers,
+      withCredentials: true,
+    });
+  }
 }
