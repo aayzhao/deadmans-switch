@@ -95,6 +95,16 @@ nav ul li a:hover {
 	background-color: #505ab0;
 }
 
+.submit-button {
+    background-color: #333e83;
+    color: #fff;
+    cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #505ab0;
+}
 /* Document List Styles */
 .loading-spinner, .no-documents {
 	text-align: center;
@@ -276,10 +286,6 @@ nav ul li.active a, #top-nav ul li a:hover {
 
 .email-input {
     flex: 1;
-}
-
-.submit-button {
-    margin-top: 4px;
 }
 
 .email-list {
