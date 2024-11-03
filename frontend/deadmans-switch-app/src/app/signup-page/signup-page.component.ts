@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication/authentication.service';
+import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -22,7 +24,9 @@ export class SignupPageComponent {
     constructor(
         protected formBuilder: FormBuilder,
         protected snackbar: MatSnackBar,
-        public auth: AuthenticationService
+        public auth: AuthenticationService,
+        private router: Router,
+        private user: UserService
     ) {}
 
     onSubmitForm() {
@@ -36,6 +40,8 @@ export class SignupPageComponent {
             this.auth.register(userData).subscribe({
                 next: (response) => {
                     this.snackbar.open('Registration successful!', 'Close', { duration: 3000 });
+                    this.user.setCurrentUserEmail(userData.email);
+                    this.router.navigate(['/manage']);
                     // Handle successful registration, e.g., redirect
                 },
                 error: (error) => {
