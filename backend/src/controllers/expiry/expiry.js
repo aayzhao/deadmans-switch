@@ -17,7 +17,7 @@ export async function sendRemindersIfCloseToExpiry() {
       // Send reminder to user to refresh
       const msg = {
         to: user.email,
-        from: "auto.lifeline00@gmail.com",
+        from: process.env.SENDGRID_FROM_EMAIL,
         subject: "Refresh your time",
         text: "Your time is about to expire. Please log in to refresh!",
       };
