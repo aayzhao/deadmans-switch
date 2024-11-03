@@ -1,10 +1,12 @@
 /* Global Styles */
-body {
-	margin: 0;
-	padding: 0;
-	font-family: Sans-serif;
-	line-height: 1.5em;
-	background-color: #f5f5f5;
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: Sans-serif;
+    line-height: 1.5em;
+    background-color: #f5f5f5;
+    overflow-y: auto; /* Allow scrolling */
 }
 
 /* Header Styles */
@@ -111,16 +113,6 @@ nav ul li a:hover {
 	background-color: rgba(0, 0, 0, 0.04);
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    height: 100%; 
-    max-height: 100%; 
-    font-family: Sans-serif;
-    line-height: 1.5em;
-}
-
 #header {
     position: absolute;
     top: 0;
@@ -139,21 +131,19 @@ body {
 }
 
 main {
-    position: fixed;
-    top: 100px; /* Set this to the height of the header */
-    left: 0; 
-    right: 0;
-    bottom: 0;
-    overflow: auto; 
+    position: relative; /* Changed from fixed */
+    padding-top: 100px; /* Space for fixed header */
+    min-height: calc(100vh - 100px);
+    width: 100%;
     background: #fff;
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
+    overflow-y: auto;
 }
 
 .container {
     display: flex;
-    gap: 20px; /* Adds space between the login and signup boxes */
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
 }
 
 .box {
@@ -195,16 +185,6 @@ nav ul li a {
 }
 nav ul li.active a, #top-nav ul li a:hover { 
     color: #d3d3f9;
-}
-        
-/*IE6 fix*/
-* html body {
-    padding: 100px 0 0 0; /* Set the first value to the height of the header */
-}
-
-* html main { 
-    height: 100%; 
-    width: 100%; 
 }
 
 .refresh-container {
@@ -277,4 +257,93 @@ nav ul li.active a, #top-nav ul li a:hover {
     to {
         transform: rotate(360deg);
     }
+}
+
+.documents-card {
+    margin: 16px;
+}
+
+.email-input-container {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+:host ::ng-deep .mat-mdc-text-field-wrapper {
+    padding-left: 8px !important;
+}
+
+.email-input {
+    flex: 1;
+}
+
+.submit-button {
+    margin-top: 4px;
+}
+
+.email-list {
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 4px;
+}
+
+.email-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    background-color: #f5f5f5;
+}
+
+.email-item:hover {
+    background-color: #eeeeee;
+}
+
+.remove-button {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.2s linear;
+}
+
+.email-item:hover .remove-button {
+    visibility: visible;
+    opacity: 1;
+}
+
+.no-emails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 0;
+    color: #666;
+}
+
+.empty-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+    color: #999;
+}
+
+/* Scrollbar Styling */
+.email-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.email-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.email-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.email-list::-webkit-scrollbar-thumb:hover {
+    background: #666;
 }

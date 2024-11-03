@@ -4,6 +4,9 @@ import { MatButtonModule } from '@angular/material/button';  // Add this
 import { MatIconModule } from '@angular/material/icon';  // Add this
 import { MatCardModule } from '@angular/material/card';  // Add this
 import { MatListModule } from '@angular/material/list';  // Add this
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { UserService } from '../services/user.service';
 import { DocumentService } from '../services/document.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,9 +23,12 @@ interface Document {
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule,
     MatListModule
   ],
   templateUrl: './file-management.component.html',
@@ -32,6 +38,10 @@ export class FileManagementComponent implements OnInit {
   userEmail: string = '';
   documents: Document[] = [];
   loading: boolean = true;
+
+  emails: string[] = [];
+  newEmail: string = '';
+  emailError: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -89,5 +99,24 @@ export class FileManagementComponent implements OnInit {
           // Handle login failure
       }
   });
+  }
+
+  addEmail() {
+    if (this.isValidEmail(this.newEmail) && !this.emails.includes(this.newEmail)) {
+      this.emails.push(this.newEmail);
+      this.newEmail = '';
+      this.emailError = false;
+    } else {
+      this.emailError = true;
+    }
+  }
+
+  removeEmail(email: string) {
+    this.emails = this.emails.filter(e => e !== email);
+  }
+
+  private isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
 }
