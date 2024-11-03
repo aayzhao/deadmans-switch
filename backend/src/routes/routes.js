@@ -8,6 +8,7 @@ import {
   addEmail,
   deleteEmail,
 } from "../controllers/email/email.js";
+import { getText, updateText } from "../controllers/docs/docs.js";
 
 export const router = Router();
 
@@ -24,3 +25,6 @@ router.post("/refresh", requiresAuthentication, asyncHandler(refreshTimer));
 router.get("/email", requiresAuthentication, asyncHandler(getEmails));
 router.post("/email", requiresAuthentication, asyncHandler(addEmail));
 router.delete("/email", requiresAuthentication, asyncHandler(deleteEmail));
+
+router.get("/text", requiresAuthentication, asyncHandler(getText));
+router.post("/text", requiresAuthentication, asyncHandler(updateText));
