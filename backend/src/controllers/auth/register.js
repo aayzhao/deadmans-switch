@@ -1,11 +1,7 @@
 import bcrypt from 'bcrypt'
 import User from '../../schemas/user.js'
 
-export async function handleRegister(
-    req,
-    res,
-    next
-) {
+export async function handleRegister(req, res, next) {
     try {
         // Hash the password
         const hash = await bcrypt.hash(req.body.password, 10);
