@@ -9,6 +9,9 @@ export async function handleLogin(req, res, next) {
 
         // Compare the password provided with the user's password
         const match = await bcrypt.compare(req.body.password, user.password);
+        if (!match) {
+            throw new Error('Invalid password');
+        }
 
         // Create a JWT token
         const token = jwt.sign(
