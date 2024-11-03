@@ -206,3 +206,75 @@ nav ul li.active a, #top-nav ul li a:hover {
     height: 100%; 
     width: 100%; 
 }
+
+.refresh-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.refresh-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 32px;
+    background-color: #FF9800;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.refresh-button:hover {
+    background-color: #F57C00;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.refresh-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.refresh-icon {
+    display: flex;
+    align-items: center;
+}
+
+.refresh-icon mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.refresh-text {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Optional loading state styles */
+.refresh-button.loading {
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+.refresh-button.loading .refresh-icon mat-icon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

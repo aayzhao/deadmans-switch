@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';  // Add this
 import { MatListModule } from '@angular/material/list';  // Add this
 import { UserService } from '../services/user.service';
 import { DocumentService } from '../services/document.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Document {
   id: string;
@@ -34,7 +35,8 @@ export class FileManagementComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private documentService: DocumentService
+    private documentService: DocumentService,
+    protected snackBar: MatSnackBar,
   ) {}
 
   ngOnInit() {
@@ -74,5 +76,18 @@ export class FileManagementComponent implements OnInit {
       const file = input.files[0];
       this.uploadFile(file);
     }
+  }
+
+  refresh() {
+    this.userService.refresh().subscribe({
+      next: (response) => {
+          this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
+          // Handle successful login, e.g., redirect
+      },
+      error: (error) => {
+          this.snackBar.open('Login failed. Please try again.', 'Close', { duration: 3000 });
+          // Handle login failure
+      }
+  });
   }
 }
