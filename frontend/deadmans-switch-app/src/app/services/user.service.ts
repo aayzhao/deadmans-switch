@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +8,9 @@ import { Observable } from 'rxjs';
 export class UserService {
   private currentUserEmail: string = '';
   private apiUrl = 'http://localhost:3000';
+
+  private emailListSubject = new BehaviorSubject<string[]>([]);
+  public emailList$ = this.emailListSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -31,20 +34,22 @@ export class UserService {
     );
   }
 
-  addEmail( email: string): Observable<any> {
+  addEmail(email: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(`${this.apiUrl}/email`, email, {
+    const body = { email: email };
+    return this.http.post<any>(`${this.apiUrl}/email`, body, {
       headers,
       withCredentials: true,
     });
   }
 
-  deleteEmail( email: string): Observable<any> {
+  deleteEmail(email: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { email: email };
     return this.http.delete<any>(`${this.apiUrl}/email`, {
       headers,
       withCredentials: true,
-      body: email
+      body: body,
     });
   }
 
@@ -52,7 +57,7 @@ export class UserService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<any>(`${this.apiUrl}/email`, {
       headers,
-      withCredentials: true
+      withCredentials: true,
     });
   }
 

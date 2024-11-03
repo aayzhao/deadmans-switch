@@ -44,6 +44,10 @@ export class FileManagementComponent implements OnInit {
 
   ngOnInit() {
     this.userEmail = this.userService.getCurrentUserEmail();
+
+    this.userService.emailList$.subscribe(emails => {
+      this.emails = emails;
+    });
     this.loadEmail();
     this.loadText();
   }
@@ -95,19 +99,16 @@ export class FileManagementComponent implements OnInit {
     if (this.isValidEmail(this.newEmail) && !this.emails.includes(this.newEmail)) {
       this.userService.addEmail(this.newEmail).subscribe({
         next: (response) => {
+          // Only load emails after successful add
+          this.loadEmail();
+          this.newEmail = ''; // Clear input after success
+          this.emailError = false;
           this.snackBar.open('Added email!', 'Close', { duration: 3000 });
         },
         error: (error) => {
-            this.snackBar.open('Email failed. Please try again.', 'Close', { duration: 3000 });
+          this.snackBar.open('Email failed. Please try again.', 'Close', { duration: 3000 });
         }
       });
-      this.loadEmail();
-      if (this.emails == undefined) {
-        this.emails = [];
-      }
-      this.emailError = false;
-      this.newEmail = '';
-
     } else {
       this.emailError = true;
     }
@@ -118,16 +119,14 @@ export class FileManagementComponent implements OnInit {
       this.userService.deleteEmail(email).subscribe({
         next: (response) => {
           this.snackBar.open('Deleted email!', 'Close', { duration: 3000 });
+          this.loadEmail();
+          this.emailError = false;
         },
         error: (error) => {
             this.snackBar.open('Deletion failed. Please try again.', 'Close', { duration: 3000 });
         }
       });
-      this.loadEmail();
-      if (this.emails == undefined) {
-        this.emails = [];
-      }
-      this.emailError = false;
+      
       
     } else {
       this.emailError = true;
@@ -142,15 +141,12 @@ export class FileManagementComponent implements OnInit {
   loadEmail() {
     this.userService.getEmail().subscribe({
       next: (response) => {
-        // Assuming the response has an emails property
-        // Adjust based on your actual API response structure
-        if (response.emails != undefined) {
-          this.emails = response.emails;
-        }
+        this.emails = response[0].emails || [];  // Use empty array if undefined
+        console.log(this.emails.length);
       },
       error: (error) => {
         console.error('Error fetching emails:', error);
-        // Handle error appropriately
+        this.snackBar.open('Error loading emails', 'Close', { duration: 3000 });
       }
     });
   }
