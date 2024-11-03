@@ -56,7 +56,7 @@ export class FileManagementComponent implements OnInit {
     // Assuming you have a getText method in your service
     this.userService.getText().subscribe({
       next: (response) => {
-        this.documentText = response.text;
+        this.documentText = response[0].text || '';
       },
       error: (error) => {
         console.error('Error loading text:', error);
