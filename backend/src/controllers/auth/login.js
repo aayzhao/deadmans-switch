@@ -4,8 +4,8 @@ import User from '../../schemas/user.js';
 
 export async function handleLogin(req, res, next) {
     try {
-        // Find the user with the username provided
-        const user = await User.findOne({ username: req.body.username });
+        // Find the user with the email provided
+        const user = await User.findOne({ email: req.body.email });
 
         // Compare the password provided with the user's password
         const match = await bcrypt.compare(req.body.password, user.password);
@@ -28,8 +28,8 @@ export async function handleLogin(req, res, next) {
         res.status(200).send({
             message: 'Login successful',
             user: {
-                username: user.username,
                 email: user.email,
+                lastRefresh: user.lastRefresh,
             },
             token,
         });

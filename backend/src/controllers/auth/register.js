@@ -13,7 +13,6 @@ export async function handleRegister(
         // Create a new user with hashed password
         const newUser = await User.create({
             email: req.body.email,
-            username: req.body.username,
             password: hash,
         });
 
@@ -22,9 +21,7 @@ export async function handleRegister(
             message: 'User registered successfully',
             user: {
                 email: newUser.email,
-                username: newUser.username,
-                createdAt: newUser.createdAt,
-                updatedAt: newUser.updatedAt,
+                lastRefresh: newUser.lastRefresh,
             },
         });
     } catch (error) {
