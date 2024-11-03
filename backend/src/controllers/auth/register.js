@@ -12,13 +12,25 @@ export async function handleRegister(req, res, next) {
       password: hash,
     });
 
-    // Send response with the created user (omit sensitive info like password)
-    res.status(201).json({
-      message: "User registered successfully",
+    // Create a JWT token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "24h",
+    });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours,
+      sameSite: "Lax",
+    });
+
+    res.status(201).send({
+      message: "Registration successful",
       user: {
         email: newUser.email,
         lastRefresh: newUser.lastRefresh,
       },
+      token,
     });
   } catch (error) {
     // Pass any errors to the error handler middleware
